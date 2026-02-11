@@ -1,5 +1,8 @@
+#for Linux:         source .venv/bin/activate
+#for Windows:       .venv/Scripts/activate
+
 gphoto2==2.6.3; sys_platform == 'linux'
-easy_canon_edsdk; sys_platform == 'win32'
+#easy_canon_edsdk; sys_platform == 'win32'
 numpy==2.2.6
 opencv-python==4.13.0.92
 pyserial==3.5
