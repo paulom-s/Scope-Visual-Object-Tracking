@@ -46,6 +46,3 @@ def analyze2(img,img_prev):
         cv2.waitKey(0)
     else:
         print('Error: No object detected !')
-
-def calculate_speed():
-    print('Thinking...')

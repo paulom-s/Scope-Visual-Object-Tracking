@@ -1,16 +1,13 @@
 import time
 import serial
 
-ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
-
 def calculate_speed():
     print('Thinking...')
 
 def move():
-    
+    1
 
 def refresh():
     print('Correcting...')
     move()
 
-ser.close()

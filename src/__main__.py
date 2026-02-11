@@ -1,8 +1,8 @@
 #for Linux:         source .venv/bin/activate
 #for Windows:       .venv/Scripts/activate
 
-import com_apn
-import com_tel
+import Linux_com_apn
+import Linux_com_tel
 import functions as f
 import time
 import cv2
@@ -12,7 +12,7 @@ def test():
     global g_thr,g_ker
     thr=0
     ker=1
-    com_apn.capture_LV()
+    Linux_com_apn.capture_LV()
     print('Live view image. Press any key to continue...')
     cv2.imshow('Preview',img)
     cv2.waitKey(0)
@@ -48,7 +48,7 @@ def follow(duration):
         print('Tracking time too long ! Pls select a number < 212.4')
         follow(input('Tracking duration (in seconds) ?'))
     else:
-        com_apn.capture_LV()
+        Linux_com_apn.capture_LV()
         positions=[]
         img_clean=f.clean(img,g_thr,g_ker)
         pla_pos=f.analyze(img_clean)
@@ -57,12 +57,12 @@ def follow(duration):
 
         for a in range(duration):
             print('')
-            com_apn.capture_LV()
+            Linux_com_apn.capture_LV()
             img_clean=f.clean(img,g_thr,g_ker)
             pla_pos=f.analyze(img_clean)
             positions.append(pla_pos)
-            f.calculate_speed()
-            com_tel.refresh()
+            Linux_com_tel.calculate_speed()
+            Linux_com_tel.refresh()
 
 
 test()
