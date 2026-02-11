@@ -1,4 +1,5 @@
-#.venv\Scripts\activate
+#for Linux:         source .venv/bin/activate
+#for Windows:       .venv/Scripts/activate
 
 import com_apn
 import com_tel
