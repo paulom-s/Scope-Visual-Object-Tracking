@@ -23,6 +23,6 @@ def move(direction,speed):
     
     ser.read(1)
 
-move(1,9)
+move('right',9)
 
 ser.close()
