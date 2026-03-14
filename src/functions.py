@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import sys
+import com_tel
 
 def clean(img,thr,ker):
     print('Cleaning...')
@@ -30,7 +32,11 @@ def analyze(img):
     if M['m00'] != 0:
         cX = int(M['m10'] / M['m00'])
         cY = int(M['m01'] / M['m00'])
-    return((cX,cY))
+        return((cX,cY))
+    else:
+        print('Error: No object detected !')
+        com_tel.stop()
+        sys.exit()
 
 def analyze2(img,img_prev):
     M = cv2.moments(img)

@@ -29,10 +29,12 @@ def test():
             ker = int(ker)
             ker = round(ker/10)
             ker = int(ker)
+            if ker > 10 :
+                ker = 10
             if not (0 <= thr <= 255):
                 print('Threshold value error ! Pls enter a number between 0 and 255.')
             elif not (1 <= ker <= 640):
-                print('Object Size value error ! Pls enter a number between 1 and 640.')
+                print('Object Size value error ! Pls enter a number between 20 and 640.')
             else:
                 img_clean=f.clean2(img,thr,ker)
                 f.analyze2(img_clean,img)

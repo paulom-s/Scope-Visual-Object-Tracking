@@ -31,6 +31,8 @@ def test():
             ker = int(ker)
             ker = round(ker/10)
             ker = int(ker)
+            if ker > 10 :
+                ker = 10
             if not (0 <= thr <= 255):
                 print('Threshold value error ! Pls enter a number between 0 and 255.')
             elif not (1 <= ker <= 640):
