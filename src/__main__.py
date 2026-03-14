@@ -18,7 +18,7 @@ def test():
     while True:
         g_thr = thr
         g_ker = ker
-        answer=input('Threshold and H.P. Correction (xxx,x) ? (enter "-1" to confirm)')
+        answer=input('Threshold and Object Size (xxx,xxx) ? (enter "-1" to confirm)')
         time.sleep(0.5)
         if answer=='-1':
             cv2.destroyWindow('Preview')
@@ -27,10 +27,12 @@ def test():
             thr,ker=answer.split(',')
             thr = int(thr)
             ker = int(ker)
+            ker = round(ker/10)
+            ker = int(ker)
             if not (0 <= thr <= 255):
                 print('Threshold value error ! Pls enter a number between 0 and 255.')
-            elif not (1 <= ker <= 20):
-                print('Hot pixels corrector value error ! Pls enter a number between 1 and 20.')
+            elif not (1 <= ker <= 640):
+                print('Object Size value error ! Pls enter a number between 1 and 640.')
             else:
                 img_clean=f.clean2(img,thr,ker)
                 f.analyze2(img_clean,img)
