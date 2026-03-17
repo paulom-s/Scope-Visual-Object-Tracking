@@ -65,7 +65,7 @@ def follow(duration):
             pla_pos = f.analyze(img_clean)
             positions.append(pla_pos)
             com_tel.calculate_speed()
-            com_tel.move()
+            com_tel.move(0,0)
             time.sleep(5)
 
 
