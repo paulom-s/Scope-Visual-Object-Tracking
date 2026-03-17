@@ -20,8 +20,8 @@ def move(v_az, v_alt):
 
 x = input('Az and Alt speed ? (X,X with maximum 3.5)')
 x.split(',')
-az = x(0)
-alt = x(1)
+az = float(x[0])
+alt = float(x[1])
 move(az,alt)
 time.sleep(2)
 stop()
