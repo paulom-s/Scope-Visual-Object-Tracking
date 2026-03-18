@@ -39,6 +39,7 @@ def analyze(img):
         sys.exit()
 
 def analyze2(img,img_prev):
+    img_prev = img_prev.copy()
     M = cv2.moments(img)
     if M['m00'] != 0:
         cX = int(M['m10'] / M['m00'])
