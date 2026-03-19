@@ -63,8 +63,8 @@ def analyze2(img,img_prev):
 
 def test():
     global g_thr,g_ker
-    thr = 0
-    ker = 1
+    thr = 255
+    ker = 0
     print('Downloading Live View...')
     print('Live view image. Press any key to continue...')
     cv2.imshow('Preview',img)
@@ -93,35 +93,46 @@ def test():
                 img_clean=clean2(img,thr,ker)
                 analyze2(img_clean,img)
 
-def follow(duration):
+def follow():
     global positions
-    duration = float(duration)
-    duration = round(duration/50,1)*10-1
-    duration = int(duration)
-    if duration<2:
-        print('Tracking time too short ! Pls select a number > 12.5')
-        follow(input('Tracking duration (in seconds) ?'))
-    elif duration>41:
-        print('Tracking time too long ! Pls select a number < 212.4')
-        follow(input('Tracking duration (in seconds) ?'))
-    else:
-        print('Downloading Live View...')
-        positions = []
-        img_clean = clean(img,g_thr,g_ker)
-        pla_pos = analyze(img_clean)
-        positions.append(pla_pos)
-        time.sleep(5)
 
-        for a in range(duration):
-            print('')
+    duration,refresh_time = input('Tracking Duration and Refresh Time ? (XXX,XX in seconds)').split(',')
+    refresh_time = float(refresh_time)
+    duration = float(duration)
+    if duration < 15:
+        print('Pls, select a Duration >= 15.')
+        follow()
+    elif duration > 7200:
+        print('Pls, select a Duration <= 7200.')
+        follow()
+    else:
+        if refresh_time >= 5:
+            refresh_time = round(refresh_time/2.5,0)*2.5
+            refresh_time = float(refresh_time)
+        else:
+            refresh_time = round(refresh_time/0.5,0)*0.5
+            refresh_time = float(refresh_time)
+            if refresh_time == 0:
+                refresh_time = 0.5
+        duration = round(duration/refresh_time,0)
+        duration = int(duration)
+        if duration < 3:
+            print('Pls, select a Duration wich is at least 3x the Refresh Time.')
+            follow()
+
+        else:
             print('Downloading Live View...')
             img_clean = clean(img,g_thr,g_ker)
-            pla_pos = analyze(img_clean)
-            positions.append(pla_pos)
-            print('Thinking...')
-            print('Correcting...')
-            time.sleep(5)
+            analyze(img_clean)
+            time.sleep(refresh_time)
+
+            for a in range(duration-1):
+                print('')
+                print('Downloading Live View...')
+                print('Thinking...')
+                print('Correcting...')
+                time.sleep(refresh_time)
 
 
 test()
-follow(input('Tracking duration (in seconds) ?'))
+follow()
