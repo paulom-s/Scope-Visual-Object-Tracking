@@ -1,9 +1,19 @@
 import nexstar
+import math
 
 mount = nexstar.NexstarHandController('/dev/ttyUSB0')
 
-def calculate_speed():
+def calculate_speed(pixel_size,focal,refresh_time,positions):
     print('Thinking...')
+    
+    # 2. Appliquer la formule : arctan( (p * s) / f )
+    # Cela donne l'angle en RADIANS
+    angle_rad = math.atan((pixels * s_mm) / focale_mm)
+    
+    # 3. Convertir les RADIANS en DEGRÉS
+    angle_deg = math.degrees(angle_rad)
+    
+    return angle_deg
 
 def stop():
     print("Stopping mount...")
