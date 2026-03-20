@@ -95,11 +95,11 @@ def follow(pixel_size,focal,iteration,refresh_time):
         img_clean = f.clean(img,g_thr,g_ker)
         pla_pos = f.analyze(img_clean)
         positions.append(pla_pos)
-        com_tel.calculate_speed(pixel_size,focal,refresh_time,positions)
-        com_tel.move(0,0)
+        v_az,v_alt = com_tel.calculate_speed(pixel_size,focal,refresh_time,positions)
+        com_tel.move(v_az,v_alt)
         time.sleep(refresh_time)
 
-    print("Stopping mount...")
+    com_tel.stop()
             
 init()
 pixel_size,focal,iteration,refresh_time = def_var()
