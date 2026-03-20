@@ -1,15 +1,17 @@
 import nexstar
-import math
 
 mount = nexstar.NexstarHandController('/dev/ttyUSB0')
 
-def calculate_speed(pixel_size,focal,refresh_time,positions):
+def calculate_speed(pixel_scale,refresh_time,pla_pos):
     print('Thinking...')
-    v_az = 0
-    v_alt = 0
-    return v_az,v_alt
+
+    v_az = (pla_pos[0] * pixel_scale) / refresh_time
+    v_alt = (pla_pos[1] * pixel_scale) / refresh_time
+
+    return -v_az,-v_alt
 
 def stop():
+    print('')
     print("Stopping mount...")
     move(0,0,1)
 

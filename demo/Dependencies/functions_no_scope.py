@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import sys
-import com_scope
+#import com_scope
 
 def clean(img,thr,ker):
     print('Cleaning...')
@@ -35,7 +35,8 @@ def analyze(img):
         return((cX,cY))
     else:
         print('Error: No object detected !')
-        com_scope.stop()
+        print('')
+        print("Stopping mount...")
         sys.exit()
 
 def analyze2(img,img_prev):

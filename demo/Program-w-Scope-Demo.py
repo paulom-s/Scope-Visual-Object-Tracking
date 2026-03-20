@@ -1,16 +1,18 @@
 # source .venv/bin/activate
 
-import com_apn
+#import com_apn
 import com_scope
-import functions as f
+import Dependencies.functions as f
 import time
 import cv2
+
+img = cv2.imread(r'data/Camera_Output/test_program.jpg')
 
 def init():
     global g_thr,g_ker
     thr = 255
     ker = 0
-    img = com_apn.capture_LV()
+    print('Downloading LiveView...')
     print('Live view image. Press any key to continue...')
     cv2.imshow('Preview',img)
     cv2.waitKey(0)
@@ -88,7 +90,7 @@ def def_pixel_scale(pixel_size,focal):
 def follow(pixel_scale,iteration,refresh_time):
     for a in range(iteration):
         print('')
-        img = com_apn.capture_LV()
+        print('Downloading LiveView...')
         img_clean = f.clean(img,g_thr,g_ker)
         pla_pos = f.analyze(img_clean)
         v_az,v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,pla_pos)

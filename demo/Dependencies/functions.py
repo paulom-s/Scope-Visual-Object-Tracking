@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import sys
-import com_scope
+import Dependencies.com_scope as com_scope
 
 def clean(img,thr,ker):
     print('Cleaning...')

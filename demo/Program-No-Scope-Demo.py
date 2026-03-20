@@ -1,16 +1,18 @@
 # source .venv/bin/activate
 
-import com_apn
-import com_scope
-import functions as f
+#import com_apn
+#import com_tel
+import Dependencies.functions_no_scope as f
 import time
 import cv2
+
+img = cv2.imread(r'data/Camera_Output/test_analyzing.jpg')
 
 def init():
     global g_thr,g_ker
     thr = 255
     ker = 0
-    img = com_apn.capture_LV()
+    print('Downloading LiveView...')
     print('Live view image. Press any key to continue...')
     cv2.imshow('Preview',img)
     cv2.waitKey(0)
@@ -86,16 +88,22 @@ def def_pixel_scale(pixel_size,focal):
     return pixel_scale
 
 def follow(pixel_scale,iteration,refresh_time):
-    for a in range(iteration):
+    print('Downloading LiveView...')
+    img_clean = f.clean(img,g_thr,g_ker)
+    pla_pos = f.analyze(img_clean)
+    time.sleep(refresh_time)
+
+    for a in range(iteration-1):
         print('')
-        img = com_apn.capture_LV()
-        img_clean = f.clean(img,g_thr,g_ker)
-        pla_pos = f.analyze(img_clean)
-        v_az,v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,pla_pos)
-        com_scope.move(v_az,v_alt,0)
+        print('Downloading LiveView...')
+        print('Cleaning...')
+        print('Analyzing...')
+        print('Thinking...')
+        print('Correcting...')
         time.sleep(refresh_time)
 
-    com_scope.stop()
+    print('')
+    print("Stopping mount...")
             
 init()
 pixel_size,focal,iteration,refresh_time = def_var()
