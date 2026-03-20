@@ -81,13 +81,16 @@ def def_var():
             elif pixel_size>6:
                 print('Pls, select a Focal Length <= 3000 mm.')
     
-    return pixel_size,focal,iteration,refresh_time
+    mirror = -1
+    while mirror != 0 and mirror != 1:
+        mirror = input('Vertically Mirror Image ? (Yes = 1, No = 0)')
+        mirror = int(mirror)
+        if not mirror == 0 or mirror == 1:
+            print('Pls, select 0 for "No" or 1 for "Yes".')
+            
+    return iteration,refresh_time
 
-def def_pixel_scale(pixel_size,focal):
-    pixel_scale = ((206.265 * pixel_size) / focal) / 3600
-    return pixel_scale
-
-def follow(pixel_scale,iteration,refresh_time):
+def follow(iteration,refresh_time):
     print('Downloading LiveView...')
     img_clean = f.clean(img,g_thr,g_ker)
     pla_pos = f.analyze(img_clean)
@@ -106,6 +109,5 @@ def follow(pixel_scale,iteration,refresh_time):
     print("Stopping mount...")
             
 init()
-pixel_size,focal,iteration,refresh_time = def_var()
-pixel_scale = def_pixel_scale(pixel_size,focal)
-follow(pixel_scale,iteration,refresh_time)
+iteration,refresh_time = def_var()
+follow(iteration,refresh_time)

@@ -1,8 +1,8 @@
 # source .venv/bin/activate
 
-import com_apn
-import com_scope
-import functions as f
+import Dependencies.com_apn as com_apn
+import Dependencies.com_scope as com_scope
+import Dependencies.functions as f
 import time
 import cv2
 
@@ -79,25 +79,32 @@ def def_var():
             elif pixel_size>6:
                 print('Pls, select a Focal Length <= 3000 mm.')
     
-    return pixel_size,focal,iteration,refresh_time
+    mirror = -1
+    while mirror != 0 and mirror != 1:
+        mirror = input('Vertically Mirror Image ? (Yes = 1, No = 0)')
+        mirror = int(mirror)
+        if not mirror == 0 or mirror == 1:
+            print('Pls, select 0 for "No" or 1 for "Yes".')
+            
+    return pixel_size,focal,iteration,refresh_time,mirror
 
 def def_pixel_scale(pixel_size,focal):
     pixel_scale = ((206.265 * pixel_size) / focal) / 3600
     return pixel_scale
 
-def follow(pixel_scale,iteration,refresh_time):
+def follow(pixel_scale,iteration,refresh_time,mirror):
     for a in range(iteration):
         print('')
         img = com_apn.capture_LV()
         img_clean = f.clean(img,g_thr,g_ker)
         pla_pos = f.analyze(img_clean)
         v_az,v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,pla_pos)
-        com_scope.move(v_az,v_alt,0)
+        com_scope.move(v_az,v_alt,0,mirror)
         time.sleep(refresh_time)
 
     com_scope.stop()
             
 init()
-pixel_size,focal,iteration,refresh_time = def_var()
+pixel_size,focal,iteration,refresh_time,mirror = def_var()
 pixel_scale = def_pixel_scale(pixel_size,focal)
-follow(pixel_scale,iteration,refresh_time)
+follow(pixel_scale,iteration,refresh_time,mirror)
