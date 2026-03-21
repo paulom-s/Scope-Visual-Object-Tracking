@@ -1,0 +1,13 @@
+_abilities_list
+_camera
+_context
+_file
+_filesys
+_list
+_port
+_port_info_list
+_port_log
+_result
+_version
+_widget
+gphoto2

@@ -93,17 +93,35 @@ def def_pixel_scale(pixel_size,focal):
     return pixel_scale
 
 def follow(pixel_scale,iteration,refresh_time,mirror):
-    for a in range(iteration):
+    positions = []
+    v_az = 0
+    v_alt = 0
+    print('')
+    img = com_apn.capture_LV()
+    cv2.imshow('Preview',img)
+    cv2.waitKey(1)
+    img_clean = f.clean(img,g_thr,g_ker)
+    pla_pos = f.analyze(img_clean)
+    positions.append(pla_pos)
+    c_az,c_alt = com_scope.calculate_correction(pixel_scale,refresh_time,positions)
+    com_scope.move(v_az,v_alt,c_az,c_alt,0,mirror)
+    time.sleep(refresh_time)
+
+    for a in range(iteration-1):
         print('')
         img = com_apn.capture_LV()
+        cv2.imshow('Preview',img)
+        cv2.waitKey(1)
         img_clean = f.clean(img,g_thr,g_ker)
         pla_pos = f.analyze(img_clean)
-        v_az,v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,pla_pos)
-        com_scope.move(v_az,v_alt,0,mirror)
+        positions.append(pla_pos)
+        v_az, v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,positions,c_az,c_alt)
+        c_az,c_alt = com_scope.calculate_correction(pixel_scale,refresh_time,positions)
+        com_scope.move(v_az,v_alt,c_az,c_alt,0,mirror)
         time.sleep(refresh_time)
 
     com_scope.stop()
-            
+        
 init()
 pixel_size,focal,iteration,refresh_time,mirror = def_var()
 pixel_scale = def_pixel_scale(pixel_size,focal)
