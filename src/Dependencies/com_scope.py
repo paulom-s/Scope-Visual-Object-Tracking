@@ -3,12 +3,12 @@ import nexstar
 mount = nexstar.NexstarHandController('/dev/ttyUSB0')
 
 def calculate_speed(pixel_scale,refresh_time,positions,c_az,c_alt):
+    print('Thinking...')
     v_az = (((positions[-1][0] - positions[-2][0]) * pixel_scale) + (c_az * refresh_time)) / refresh_time
     v_alt = (((positions[-1][1] - positions[-2][1]) * pixel_scale) + (c_alt * refresh_time)) / refresh_time
     return v_az,v_alt
 
 def calculate_correction(pixel_scale,refresh_time,positions):
-    print('Thinking...')
     c_az = ((positions[-1][0] - 480) * pixel_scale) / refresh_time
     c_alt = ((positions[-1][1] - 320) * pixel_scale) / refresh_time
     return c_az,c_alt
