@@ -16,7 +16,7 @@ def calculate_correction(pixel_scale,refresh_time,positions):
 def stop():
     print('')
     print("Stopping mount...")
-    move(0,0,1,0)
+    move(0,0,0,0,1,0)
 
 def move(v_az,v_alt,c_az,c_alt,stopping,mirror):
     if stopping == 0:
@@ -26,7 +26,7 @@ def move(v_az,v_alt,c_az,c_alt,stopping,mirror):
         print('Error : Speed > 3')
     else:
         if mirror == 1:
-            mount.slew_variable(nexstar.NexstarDeviceId.AZM_RA_MOTOR, 1 * (-1 * (v_az + c_az)))
+            mount.slew_variable(nexstar.NexstarDeviceId.AZM_RA_MOTOR, -1 * (-1 * (v_az + c_az)))
             mount.slew_variable(nexstar.NexstarDeviceId.ALT_DEC_MOTOR, -1 * (-1 * (v_alt + c_alt)))
         else:
             mount.slew_variable(nexstar.NexstarDeviceId.AZM_RA_MOTOR, -1 * (-1 * (v_az + c_az)))
