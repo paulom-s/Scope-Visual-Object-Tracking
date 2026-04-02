@@ -1,0 +1,1 @@
+Visual Object Tracking software for Scope (Celestron NexStar 127SLT) by connecting it and an DSLR Camera (Canon EOS 100D) to the laptop. Developing it on both Windows and Linux. Contact me for anything (see README.md).
