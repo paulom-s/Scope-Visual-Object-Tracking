@@ -6,7 +6,7 @@ import Dependencies.functions_no_scope as f
 import time
 import cv2
 
-img = cv2.imread(r'data/Camera_Output/test_analyzing.jpg')
+img = cv2.imread(r'data/Camera_Output/test_program.jpg')
 
 def init():
     global g_thr,g_ker
@@ -88,19 +88,34 @@ def def_var():
         if not mirror == 0 or mirror == 1:
             print('Pls, select 0 for "No" or 1 for "Yes".')
             
-    return iteration,refresh_time
+    return pixel_size,focal,iteration,refresh_time,mirror
 
-def follow(iteration,refresh_time):
+def def_pixel_scale(pixel_size,focal):
+    pixel_scale = ((206.265 * pixel_size) / focal) / 3600
+    return pixel_scale
+
+def follow(pixel_scale,iteration,refresh_time,mirror):
+    positions = []
+    v_az = 0
+    v_alt = 0
+    print('')
     print('Downloading LiveView...')
+    cv2.imshow('Preview',img)
+    cv2.waitKey(1)
     img_clean = f.clean(img,g_thr,g_ker)
     pla_pos = f.analyze(img_clean)
+    positions.append(pla_pos)
+    print('Correcting...')
     time.sleep(refresh_time)
 
     for a in range(iteration-1):
         print('')
         print('Downloading LiveView...')
-        print('Cleaning...')
-        print('Analyzing...')
+        cv2.imshow('Preview',img)
+        cv2.waitKey(1)
+        img_clean = f.clean(img,g_thr,g_ker)
+        pla_pos = f.analyze(img_clean)
+        positions.append(pla_pos)
         print('Thinking...')
         print('Correcting...')
         time.sleep(refresh_time)
@@ -109,5 +124,6 @@ def follow(iteration,refresh_time):
     print("Stopping mount...")
             
 init()
-iteration,refresh_time = def_var()
-follow(iteration,refresh_time)
+pixel_size,focal,iteration,refresh_time,mirror = def_var()
+pixel_scale = def_pixel_scale(pixel_size,focal)
+follow(pixel_scale,iteration,refresh_time,mirror)

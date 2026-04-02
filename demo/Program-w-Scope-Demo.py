@@ -66,19 +66,19 @@ def def_var():
     
     pixel_size = 0
     focal = 0
-    while not (0.5<=pixel_size<=6) or not (15<=focal<=3000):
+    while not (0.5<=pixel_size<=35) or not (15<=focal<=3000):
         pixel_size,focal = input('Pixel Size (um) and Focal Length (mm) ? (X.X,XXXX)').split(',')
         pixel_size = float(pixel_size)
         focal = float(focal)
         focal = int(round(focal,0))
         if pixel_size<0.5:
             print('Pls, select a Pixel Size >= 0.5 um.')
-        elif pixel_size>6:
-            print('Pls, select a Pixel Size <= 6 um.')
+        elif pixel_size>35:
+            print('Pls, select a Pixel Size <= 35 um.')
         else:
             if focal<15:
                 print('Pls, select a Focal Length >= 15 mm.')
-            elif pixel_size>6:
+            elif focal>3000:
                 print('Pls, select a Focal Length <= 3000 mm.')
     
     mirror = -1
@@ -95,13 +95,31 @@ def def_pixel_scale(pixel_size,focal):
     return pixel_scale
 
 def follow(pixel_scale,iteration,refresh_time,mirror):
-    for a in range(iteration):
+    positions = []
+    v_az = 0
+    v_alt = 0
+    print('')
+    print('Downloading LiveView...')
+    cv2.imshow('Preview',img)
+    cv2.waitKey(1)
+    img_clean = f.clean(img,g_thr,g_ker)
+    pla_pos = f.analyze(img_clean)
+    positions.append(pla_pos)
+    c_az,c_alt = com_scope.calculate_correction(pixel_scale,refresh_time,positions)
+    com_scope.move(v_az,v_alt,c_az,c_alt,0,mirror)
+    time.sleep(refresh_time)
+
+    for a in range(iteration-1):
         print('')
         print('Downloading LiveView...')
+        cv2.imshow('Preview',img)
+        cv2.waitKey(1)
         img_clean = f.clean(img,g_thr,g_ker)
         pla_pos = f.analyze(img_clean)
-        v_az,v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,pla_pos)
-        com_scope.move(v_az,v_alt,0,mirror)
+        positions.append(pla_pos)
+        v_az, v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,positions,c_az,c_alt)
+        c_az,c_alt = com_scope.calculate_correction(pixel_scale,refresh_time,positions)
+        com_scope.move(v_az,v_alt,c_az,c_alt,0,mirror)
         time.sleep(refresh_time)
 
     com_scope.stop()
