@@ -21,4 +21,4 @@ I am 15, I speak both French and English, contact me for anything.
 
 ***Update:** The Program has been tested, it's working on Linux for all Celestron NexStar Scope with any Canon DSLR Camera released before 2016. I haven't tested it for other configurations, please contact me if you can give me more tests results (See my Website below).*
 
-*`https://[Site_Not_Created_Yet_Please_Wait_It_Will_Come_Soon].com`*
+*`https://paulom-s.github.io/Scope-Visual-Object-Tracking_Website/`*
