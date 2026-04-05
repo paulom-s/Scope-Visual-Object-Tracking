@@ -30,4 +30,4 @@ def move(v_az,v_alt,c_az,c_alt,stopping,mirror):
             mount.slew_variable(nexstar.NexstarDeviceId.ALT_DEC_MOTOR, -1 * (-1 * (v_alt + c_alt)))
         else:
             mount.slew_variable(nexstar.NexstarDeviceId.AZM_RA_MOTOR, -1 * (-1 * (v_az + c_az)))
-            mount.slew_variable(nexstar.NexstarDeviceId.ALT_DEC_MOTOR, -1 * (-1 * (v_alt + c_alt)))
+            mount.slew_variable(nexstar.NexstarDeviceId.ALT_DEC_MOTOR, 1 * (-1 * (v_alt + c_alt)))
