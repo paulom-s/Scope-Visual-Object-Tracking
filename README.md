@@ -11,10 +11,10 @@ I am 15, I speak both French and English, contact me for anything (See my Websit
   - *`Full-Disc Tracking (Planetary/Sun and Moon low Focal): 🟢`*
   - *`Close-Up Tracking (Sun and Moon high Focal): 🟡`*
   - *`Star Tracking (Deep-Sky/Asteroidal Occultations): 🟡`*
-  - *`Other Celestron Mounts Compatibility: 🟡`*
   - *`Other Cameras Compatibility (Update for New Canon Cameras or Other Brands): 🟡`*
+  - *`Cross-Platform Compatibility (Windows Version): 🟡`*
+  - *`Other Celestron Mounts Compatibility: 🔴`*
   - *`Other Brands Mounts Compatibility: 🔴`*
-  - *`Cross-Platform Compatibility (Windows Version): 🔴`*
 
     ***Legend:** 🟢Already Tested and Working 🟡Under development/testing 🔴Planned*
 
