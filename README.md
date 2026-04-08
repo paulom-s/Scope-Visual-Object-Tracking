@@ -2,24 +2,6 @@ Visual Object Tracking software for Astronomy/Astrophotography by connecting the
 
 I am 15, I speak both French and English, contact me for anything (See my Website below).
 
-***My Setup:***
-  - *`Camera: Canon EOS 100D`*
-  - *`Scope: Celestron NexStar 127SLT (127/1500 GoTo)`*
-  - *`OS: Linux Ubuntu/Debian and Windows 10/11`*
-
-***Features Progress:***
-  - *`Full-Disc Tracking (Planetary/Sun and Moon low Focal): 🟢`*
-  - *`Close-Up Tracking (Sun and Moon high Focal): 🟡`*
-  - *`Star Tracking (Deep-Sky/Asteroidal Occultations): 🟡`*
-  - *`Other Cameras Compatibility (Update for New Canon Cameras or Other Brands): 🟡`*
-  - *`Cross-Platform Compatibility (Windows Version): 🟡`*
-  - *`Other Celestron Mounts Compatibility: 🔴`*
-  - *`Other Brands Mounts Compatibility: 🔴`*
-
-    ***Legend:** 🟢Already Tested and Working 🟡Under development/testing 🔴Planned*
-
-***Update:** The Program has been tested, it's working on Linux for all Celestron NexStar Scope with any Canon DSLR Camera released before 2016. I haven't tested it for other configurations, please contact me if you can give me more tests results (See my Website below).*
-
 ***Wiki, Explanations, Contact and Complementary Informations on my Website:***
 
 *`https://paulom-s.github.io/Scope-Visual-Object-Tracking_Website/`*
