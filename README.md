@@ -3,6 +3,6 @@ See the progress of the different tracking algorithms on my Website below. I'm d
 
 ***Wiki, How-To-Install, Explanations, Contact and Complementary Informations on my Website:***
 
-[S-V-O-T Wiki](https://paulom-s.github.io/Scope-Visual-Object-Tracking_Website/)
+[Scope-Visual-Object-Tracking_Website](https://paulom-s.github.io/Scope-Visual-Object-Tracking_Website/)
 
-_I am 15, I speak both French and English, contact me for anything._
+_I am 15, I speak both French and English, contact me for anything (GitHub or Google Form in the [Contact Section](https://paulom-s.github.io/Scope-Visual-Object-Tracking_Website/pages/contact.html) of my Website._
