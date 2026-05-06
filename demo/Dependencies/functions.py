@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Paul SANS DELISLE (@paulom-s)
+# Licensed under the MIT License.
+
 import cv2
 import numpy as np
 import sys

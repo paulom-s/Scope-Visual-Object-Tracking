@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Paul SANS DELISLE (@paulom-s)
+# Licensed under the MIT License.
+
 import gphoto2 as gp2
 import os
 import cv2

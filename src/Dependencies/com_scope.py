@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Paul SANS DELISLE (@paulom-s)
+# Licensed under the MIT License.
+
 import nexstar
 
 mount = nexstar.NexstarHandController('/dev/ttyUSB0')

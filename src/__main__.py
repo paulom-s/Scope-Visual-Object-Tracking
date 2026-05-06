@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Paul SANS DELISLE (@paulom-s)
+# Licensed under the MIT License.
+
 # source .venv/bin/activate
 
 import Dependencies.com_apn as com_apn
