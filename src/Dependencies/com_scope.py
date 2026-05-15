@@ -4,8 +4,8 @@
 import nexstar
 import sys
 import time
-import com_apn
-import functions as f
+import Dependencies.com_apn as com_apn
+import Dependencies.functions as f
 
 mount = nexstar.NexstarHandController('/dev/ttyUSB0')
 
