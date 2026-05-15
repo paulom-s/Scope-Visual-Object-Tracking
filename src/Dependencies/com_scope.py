@@ -2,6 +2,10 @@
 # Licensed under the MIT License.
 
 import nexstar
+import sys
+import time
+import com_apn
+import functions as f
 
 mount = nexstar.NexstarHandController('/dev/ttyUSB0')
 
@@ -24,7 +28,7 @@ def stop():
 def move(v_az,v_alt,c_az,c_alt,stopping,mirror):
     if stopping == 0:
         print('Correcting...')
-    if abs(v_az) > 3 or abs(v_alt) > 3:
+    if abs(v_az + c_az) > 3 or abs(v_alt + c_alt) > 3:
         stop()
         print('Error : Speed > 3')
     else:
@@ -34,3 +38,50 @@ def move(v_az,v_alt,c_az,c_alt,stopping,mirror):
         else:
             mount.slew_variable(nexstar.NexstarDeviceId.AZM_RA_MOTOR, -1 * (-1 * (v_az + c_az)))
             mount.slew_variable(nexstar.NexstarDeviceId.ALT_DEC_MOTOR, 1 * (-1 * (v_alt + c_alt)))
+
+def scan(timeout,g_thr,g_ker):
+    if timeout == 0:
+        stop()
+        sys.exit()
+
+    print('Starting Scan...')
+    duration = 0.25
+    while timeout != 0:
+        move(0,0,duration,0,0,0)  
+        time.sleep(0,25)
+        stop()
+        img = com_apn.capture_LV()
+        img = f.clean(img,g_thr,g_ker)
+        if f.analyze3(img) == 1:
+            return
+
+        move(0,0,0,duration,0,0)
+        time.sleep(0,25)
+        stop()
+        img = com_apn.capture_LV()
+        img = f.clean(img,g_thr,g_ker)
+        if f.analyze3(img) == 1:
+            return
+
+        move(0,0,-duration,0,0,0)  
+        time.sleep(0,25)
+        stop()
+        img = com_apn.capture_LV()
+        img = f.clean(img,g_thr,g_ker)
+        if f.analyze3(img) == 1:
+            return
+
+        move(0,0,0,-duration,0,0)
+        time.sleep(0,25)
+        stop()
+        img = com_apn.capture_LV()
+        img = f.clean(img,g_thr,g_ker)
+        if f.analyze3(img) == 1:
+            return
+
+        duration += 0.25
+        timeout -= 1
+    
+    print('Error: Scan timed out ! Stopping the program...')
+    stop()
+    sys.exit()

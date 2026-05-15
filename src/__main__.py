@@ -8,6 +8,7 @@ import Dependencies.com_scope as com_scope
 import Dependencies.functions as f
 import time
 import cv2
+import sys
 
 def init():
     global g_thr,g_ker
@@ -95,7 +96,19 @@ def def_pixel_scale(pixel_size,focal):
     pixel_scale = ((206.265 * pixel_size) / focal) / 3600
     return pixel_scale
 
-def follow(pixel_scale,iteration,refresh_time,mirror):
+def def_timeout():
+    timeout = -1
+    while not (0<=timeout<=10):
+        timeout = print('Scan timeout (s) ? (XX)')
+        timeout = int(timeout)
+        if timeout<0:
+            print('Pls, select a timeout >= 0 s.')
+        elif timeout>10:
+            print('Pls, select a timeout <= 10 s.')
+
+    return timeout
+
+def follow(pixel_scale,iteration,refresh_time,mirror,timeout):
     positions = []
     v_az = 0
     v_alt = 0
@@ -104,7 +117,7 @@ def follow(pixel_scale,iteration,refresh_time,mirror):
     cv2.imshow('Preview',img)
     cv2.waitKey(1)
     img_clean = f.clean(img,g_thr,g_ker)
-    pla_pos = f.analyze(img_clean)
+    pla_pos = f.analyze(img_clean,timeout,g_thr,g_ker)
     positions.append(pla_pos)
     c_az,c_alt = com_scope.calculate_correction(pixel_scale,refresh_time,positions)
     com_scope.move(v_az,v_alt,c_az,c_alt,0,mirror)
@@ -116,7 +129,7 @@ def follow(pixel_scale,iteration,refresh_time,mirror):
         cv2.imshow('Preview',img)
         cv2.waitKey(1)
         img_clean = f.clean(img,g_thr,g_ker)
-        pla_pos = f.analyze(img_clean)
+        pla_pos = f.analyze(img_clean,timeout,g_thr,g_ker)
         positions.append(pla_pos)
         v_az, v_alt = com_scope.calculate_speed(pixel_scale,refresh_time,positions,c_az,c_alt)
         c_az,c_alt = com_scope.calculate_correction(pixel_scale,refresh_time,positions)
@@ -124,8 +137,10 @@ def follow(pixel_scale,iteration,refresh_time,mirror):
         time.sleep(refresh_time)
 
     com_scope.stop()
+    sys.exit()
         
 init()
 pixel_size,focal,iteration,refresh_time,mirror = def_var()
 pixel_scale = def_pixel_scale(pixel_size,focal)
-follow(pixel_scale,iteration,refresh_time,mirror)
+timeout = def_timeout()
+follow(pixel_scale,iteration,refresh_time,mirror,timeout)

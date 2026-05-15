@@ -3,7 +3,6 @@
 
 import cv2
 import numpy as np
-import sys
 import Dependencies.com_scope as com_scope
 
 def clean(img,thr,ker):
@@ -29,7 +28,7 @@ def clean2(img,thr,ker):
     cv2.waitKey(0)
     return img_clean
 
-def analyze(img):
+def analyze(img,timeout,g_thr,g_ker):
     print('Analyzing...')
     M = cv2.moments(img)
     if M['m00'] != 0:
@@ -38,8 +37,8 @@ def analyze(img):
         return((cX,cY))
     else:
         print('Error: No object detected !')
-        com_scope.stop()
-        sys.exit()
+        com_scope.scan(timeout,g_thr,g_ker)
+        analyze(img,0,g_thr,g_ker)
 
 def analyze2(img,img_prev):
     img_prev = img_prev.copy()
@@ -56,3 +55,12 @@ def analyze2(img,img_prev):
         cv2.waitKey(0)
     else:
         print('Error: No object detected !')
+
+def analyze3(img):
+    print('Analyzing...')
+    M = cv2.moments(img)
+    if M['m00'] != 0:
+        return 1
+    else:
+        print('Error: No object detected !')
+        return 0
