@@ -38,6 +38,7 @@ def analyze(img,timeout,g_thr,g_ker):
     else:
         print('Error: No object detected !')
         com_scope.scan(timeout,g_thr,g_ker)
+        print('Object found: Scan successfull !')
         analyze(img,0,g_thr,g_ker)
 
 def analyze2(img,img_prev):
@@ -62,5 +63,4 @@ def analyze3(img):
     if M['m00'] != 0:
         return 1
     else:
-        print('Error: No object detected !')
         return 0

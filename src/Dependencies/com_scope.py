@@ -40,47 +40,47 @@ def move(v_az,v_alt,c_az,c_alt,stopping,mirror):
             mount.slew_variable(nexstar.NexstarDeviceId.ALT_DEC_MOTOR, 1 * (-1 * (v_alt + c_alt)))
 
 def scan(timeout,g_thr,g_ker):
-    if timeout == 0:
+    if timeout<=0:
         stop()
         sys.exit()
 
     print('Starting Scan...')
-    duration = 0.25
-    while timeout != 0:
-        move(0,0,duration,0,0,0)  
-        time.sleep(0,25)
+    duration = 0.5
+    while timeout>0:
+        move(0,0,3,0,0,0)  
+        time.sleep(duration)
         stop()
         img = com_apn.capture_LV()
         img = f.clean(img,g_thr,g_ker)
         if f.analyze3(img) == 1:
             return
 
-        move(0,0,0,duration,0,0)
-        time.sleep(0,25)
+        move(0,0,0,3,0,0)
+        time.sleep(duration)
         stop()
         img = com_apn.capture_LV()
         img = f.clean(img,g_thr,g_ker)
         if f.analyze3(img) == 1:
             return
 
-        move(0,0,-duration,0,0,0)  
-        time.sleep(0,25)
+        move(0,0,-3,0,0,0)  
+        time.sleep(duration)
         stop()
         img = com_apn.capture_LV()
         img = f.clean(img,g_thr,g_ker)
         if f.analyze3(img) == 1:
             return
 
-        move(0,0,0,-duration,0,0)
-        time.sleep(0,25)
+        move(0,0,0,-3,0,0)
+        time.sleep(duration)
         stop()
         img = com_apn.capture_LV()
         img = f.clean(img,g_thr,g_ker)
         if f.analyze3(img) == 1:
             return
 
-        duration += 0.25
-        timeout -= 1
+        duration += 0.5
+        timeout -= duration*4
     
     print('Error: Scan timed out ! Stopping the program...')
     stop()

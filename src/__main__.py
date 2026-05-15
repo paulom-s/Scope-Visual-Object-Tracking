@@ -98,13 +98,13 @@ def def_pixel_scale(pixel_size,focal):
 
 def def_timeout():
     timeout = -1
-    while not (0<=timeout<=10):
+    while not (0<=timeout<=15):
         timeout = print('Scan timeout (s) ? (XX)')
         timeout = int(timeout)
         if timeout<0:
             print('Pls, select a timeout >= 0 s.')
-        elif timeout>10:
-            print('Pls, select a timeout <= 10 s.')
+        elif timeout>15:
+            print('Pls, select a timeout <= 15 s.')
 
     return timeout
 
